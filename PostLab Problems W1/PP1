@@ -1,1 +1,58 @@
+def mean(numbers):
+    """
+    Calculate the mean (average) of a list of numbers.
+    :param numbers: List of numbers
+    :return: Mean of the numbers
+    """
+    if not numbers:
+        raise ValueError("The list is empty. Cannot calculate the mean.")
+    return sum(numbers) / len(numbers)
 
+def median(numbers):
+    """
+    Calculate the median of a list of numbers.
+    :param numbers: List of numbers
+    :return: Median of the numbers
+    """
+    if not numbers:
+        raise ValueError("The list is empty. Cannot calculate the median.")
+    sorted_numbers = sorted(numbers)
+    n = len(sorted_numbers)
+    mid = n // 2
+
+    if n % 2 == 0:  # Even number of elements
+        return (sorted_numbers[mid - 1] + sorted_numbers[mid]) / 2
+    else:  # Odd number of elements
+        return sorted_numbers[mid]
+
+def mode(numbers):
+    """
+    Calculate the mode of a list of numbers.
+    :param numbers: List of numbers
+    :return: Mode of the numbers
+    """
+    if not numbers:
+        raise ValueError("The list is empty. Cannot calculate the mode.")
+    
+    frequency = {}
+    for number in numbers:
+        frequency[number] = frequency.get(number, 0) + 1
+
+    max_frequency = max(frequency.values())
+    modes = [key for key, value in frequency.items() if value == max_frequency]
+
+    if len(modes) == len(numbers):
+        raise ValueError("No unique mode. All values occur equally.")
+
+    return modes[0] if len(modes) == 1 else modes
+
+# Example usage
+if __name__ == "__main__":
+    data = [4, 1, 2, 2, 3, 5, 6, 4]
+
+    print("Mean:", mean(data))
+    print("Median:", median(data))
+    try:
+        print("Mode:", mode(data))
+    except ValueError as e:
+        print("Mode calculation error:", e)
